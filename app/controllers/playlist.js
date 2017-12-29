@@ -31,10 +31,29 @@ exports.delete = function(req, res, next) {
         .catch(err => { return next(err); })
 }
 
+// Add a song to a playlist
 exports.addSongToPlaylist = function(req, res, next) {
     let ownerId = req.user._id;
     let { id, songId } = req.body;
     PlaylistManager.addSongToPlaylist({id, ownerId, songId})
         .then(() => { return res.sendStatus(200)} )
         .catch(err => { return next(err); });
+}
+
+// Remove a song from a playlist
+exports.removeSongFromPlaylist = function(req, res, next) {
+    let ownerId = req.user._id;
+    let { id, songId } = req.body;
+    PlaylsitManager.removeSongFromPlaylist({id, ownerId, songId})
+        .then(() => { return res.sendStatus(200)} )
+        .catch(err => { return next(err) });
+}
+
+// Renames a playlist
+exports.renamePlaylist = function(req, res, next) {
+    let ownerId = req.user._id;
+    let { id, name } = req.body;
+    PlaylistManager.renamePlaylist({id, ownerId, name})
+        .then(() => { return res.sendStatus(200) })
+        .catch(err => { return next(err) });
 }

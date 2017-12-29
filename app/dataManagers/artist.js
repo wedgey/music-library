@@ -15,3 +15,7 @@ exports.get = async function(queryObj = {}) {
 exports.getOneByName = async function(name = "") {
     return Artist.findOne({name}).exec();
 }
+
+exports.getManyByNames = function(names = []) {
+    return Artist.find({ name: {$in: names} }).exec();
+}
