@@ -31,15 +31,31 @@ exports.login = function(req, res, next) {
 }
 
 //==============================================
+// Refresh Token Route
+//==============================================
+exports.refreshToken = function(req, res, next) {
+    let token = req.get('Authorization');
+    jwt.verify(token.split(" ")[1], config.secret, { ignoreExpiration: true }, async function(err, decoded) {
+        if (err) next(err);
+        if (decoded.exp <= Date.now()) {
+            try {
+                let user = await User.findById(decoded._id).exec();
+                let userInfo = setUserInfo(user);
+                return res.status(200).json({ token: `Bearer ${generateToken(userInfo)}`, user: userInfo });
+            } catch (err) {
+                return next(err);
+            }
+        }
+    });
+}
+
+//==============================================
 // Register Route
 //==============================================
 exports.register = function(req, res, next) {
     // Check for registration errors
     const email = req.body.email.toLowerCase();
     const password = req.body.password;
-
-    console.log(email);
-    console.log(password);
 
     // Return error if no email provided
     if (!email) {

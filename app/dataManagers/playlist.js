@@ -27,6 +27,15 @@ exports.addSongToPlaylist = async function({id, ownerId, songId}) {
     return Playlist.updateOne({ _id: id, owner: ownerId }, { $push: { songs: song[0] }});
 }
 
+// Removes a song from a playlist
+exports.removeSongFromPlaylist = async function({id, ownerId, songId}) {
+    return Playlist.updateOne({ _id: id, owner: ownerId }, { $pullAll: { songs: songId }});
+}
+
+exports.renamePlaylist = async function({id, ownerId, name}) {
+    return Playlist.updateOne({ _id: id, owner: ownerId }, { $set: { name: name }});
+}
+
 // Populates a playlist
 exports.populatePlaylist = async function(playlist) {
     let result = await playlist.populate({ path: 'songs', populate: { path: 'artist' }}).execPopulate();

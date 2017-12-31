@@ -41,6 +41,7 @@ module.exports = function(app) {
 
     authRoutes.post("/login", requireLogin, AuthenticationController.login);
     authRoutes.post("/register", AuthenticationController.register);
+    authRoutes.post("/refreshToken", AuthenticationController.refreshToken);
 
     //====================================
     // Song Routes
@@ -63,6 +64,8 @@ module.exports = function(app) {
     playlistRoutes.post("/create", requireAuth, PlaylistController.create);
     playlistRoutes.delete("/", requireAuth, PlaylistController.delete);
     playlistRoutes.post("/addsong", requireAuth, PlaylistController.addSongToPlaylist);
+    playlistRoutes.post("/removesong", requireAuth, PlaylistController.removeSongFromPlaylist);
+    playlistRoutes.post("/rename", requireAuth, PlaylistController.renamePlaylist);
     
     // Set URL for API group routes
     app.use("/api", apiRoutes);

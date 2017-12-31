@@ -56,8 +56,7 @@ const SongSchema = new Schema({
         required: true
     },
     artist: {
-        type: Schema.Types.ObjectId,
-        ref: "Artist",
+        type: [{ type: Schema.Types.ObjectId, ref: "Artist" }],
         required: true
     },
     youtubeId: {
