@@ -29,7 +29,7 @@ exports.addSongToPlaylist = async function({id, ownerId, songId}) {
 
 // Removes a song from a playlist
 exports.removeSongFromPlaylist = async function({id, ownerId, songId}) {
-    return Playlist.updateOne({ _id: id, owner: ownerId }, { $pullAll: { songs: songId }});
+    return Playlist.updateOne({ _id: id, owner: ownerId }, { $pull: { songs: songId }});
 }
 
 exports.renamePlaylist = async function({id, ownerId, name}) {

@@ -44,7 +44,7 @@ exports.addSongToPlaylist = function(req, res, next) {
 exports.removeSongFromPlaylist = function(req, res, next) {
     let ownerId = req.user._id;
     let { id, songId } = req.body;
-    PlaylsitManager.removeSongFromPlaylist({id, ownerId, songId})
+    PlaylistManager.removeSongFromPlaylist({id, ownerId, songId})
         .then(() => { return res.sendStatus(200)} )
         .catch(err => { return next(err) });
 }

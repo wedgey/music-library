@@ -42,5 +42,5 @@ exports.get = async function(queryObj = {}, projections = null, options = {}, po
 
 // Get song count
 exports.count = function(queryObj = {}) {
-    return Song.count(queryObj).exec()
+    return Song.count(queryObj).exec();
 }
