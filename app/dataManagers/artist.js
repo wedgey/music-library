@@ -17,7 +17,6 @@ exports.getOneByName = async function(name = "") {
 }
 
 exports.getManyByNames = function(names = []) {
-    // return Artist.find({ name: {$in: names} }).exec();
     return Artist.aggregate()
                     .match({ name: {$in: names} })
                     .addFields({ __order: {$indexOfArray: [names, "$name"]}})
