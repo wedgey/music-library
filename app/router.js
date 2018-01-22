@@ -49,6 +49,8 @@ module.exports = function(app) {
     apiRoutes.use("/song", songRoutes);
     songRoutes.post("/create", requireAuth, requireRole(ROLE_ADMIN), SongController.create);
     songRoutes.get("/", requireAuth, SongController.get);
+    songRoutes.get("/pending", requireAuth, requireRole(ROLE_ADMIN), SongController.getPending);
+    songRoutes.post("/updatestatus", requireAuth, requireRole(ROLE_ADMIN), SongController.updateStatus);
 
     //====================================
     // Artist Routes
