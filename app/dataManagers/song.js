@@ -8,7 +8,8 @@ exports.create = async function({title, artistNames, youtubeId, ownerId}) {
     if (artists && artists.length !== artistNames.length) {
         let newArtistNames = artistNames.filter(artistName => artists.findIndex(artist => artist.name === artistName) === -1);
         if (newArtistNames.length > 0) {
-            artists = artists.concat(await Promise.all(newArtistNames.map(artistName => ArtistManager.create(artistName))));
+            let newArtists = await Promise.all(newArtistNames.map(artistName => ArtistManager.create(artistName)));
+            artists = await ArtistManager.getManyByNames(artistNames);
         }
     }
 
@@ -42,5 +43,10 @@ exports.get = async function(queryObj = {}, projections = null, options = {}, po
 
 // Get song count
 exports.count = function(queryObj = {}) {
-    return Song.count(queryObj).exec()
+    return Song.count(queryObj).exec();
+}
+
+// Update song status
+exports.updateStatus = function(id, status) {
+    return Song.findByIdAndUpdate(id, { status: status }).exec();
 }

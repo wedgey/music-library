@@ -63,6 +63,11 @@ const SongSchema = new Schema({
         type: String,
         required: true
     },
+    status: {
+        type: String,
+        enum: ["Active", "Pending", "Deleted"],
+        default: "Pending"
+    },
     metadata: SongMetaDataSchema
 },
 {

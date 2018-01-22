@@ -54,8 +54,8 @@ exports.refreshToken = function(req, res, next) {
 //==============================================
 exports.register = function(req, res, next) {
     // Check for registration errors
-    const email = req.body.email.toLowerCase();
-    const password = req.body.password;
+    const email = req.body.email.toLowerCase().trim();
+    const password = req.body.password.trim();
 
     // Return error if no email provided
     if (!email) {
