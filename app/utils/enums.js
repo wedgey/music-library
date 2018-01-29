@@ -14,6 +14,19 @@ exports.User = {
     Role: {
         Member: "Member",
         Moderator: "Moderator",
-        Admin: "Admin"
+        Admin: "Admin",
+        System: "System"
+    }
+}
+
+exports.Task = {
+    Status: {
+        Queued: "Queued",
+        InProgress: "InProgress",
+        Completed: "Completed",
+        Error: "Error"
+    },
+    Type: {
+        Sync: "Sync"
     }
 }
