@@ -14,6 +14,7 @@ exports.create = async function({ youtubeUsername, ownerId }) {
         owner: ownerId,
         title,
         youtubeId: youtubeChannel.id,
+        youtubeUsername: youtubeUsername,
         description,
         customUrl,
         uploadsPlaylist: youtubeChannel.contentDetails.relatedPlaylists.uploads,
