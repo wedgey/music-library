@@ -55,3 +55,19 @@ exports.updateStatus = async function(req, res, next) {
         .then(() => { return res.sendStatus(200); })
         .catch(err => { return next(err); });
 }
+
+// Update title of a song
+exports.updateTitle = async function(req, res, next) {
+    let { id, title } = req.body;
+    SongManager.updateTitle(id, title.trim())
+        .then(() => { return res.sendStatus(200); })
+        .catch(err => { return next(err); });
+}
+
+// Update artists of a song
+exports.updateArtist = async function(req, res, next) {
+    let { id, artistNames } = req.body;
+    SongManager.updateArtist(id, artistNames)
+        .then((song) => { return res.status(200).json(song); })
+        .catch(err => { return next(err); });
+}

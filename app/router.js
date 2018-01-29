@@ -6,6 +6,7 @@ const AuthenticationController = require("./controllers/authentication");
 const SongController = require("./controllers/song");
 const ArtistController = require("./controllers/artist");
 const PlaylistController = require("./controllers/playlist");
+const ChannelController = require("./controllers/channel");
 
 const requireAuth = passport.authenticate("jwt", { session: false });
 const requireLogin = passport.authenticate("local", { session: false });
@@ -30,6 +31,7 @@ module.exports = function(app) {
           authRoutes = express.Router(),
           songRoutes = express.Router(),
           artistRoutes = express.Router(),
+          channelRoutes = express.Router(),
           playlistRoutes = express.Router();
 
     //====================================
@@ -47,16 +49,26 @@ module.exports = function(app) {
     // Song Routes
     //====================================
     apiRoutes.use("/song", songRoutes);
-    songRoutes.post("/create", requireAuth, requireRole(ROLE_ADMIN), SongController.create);
     songRoutes.get("/", requireAuth, SongController.get);
+    songRoutes.post("/create", requireAuth, requireRole(ROLE_ADMIN), SongController.create);
     songRoutes.get("/pending", requireAuth, requireRole(ROLE_ADMIN), SongController.getPending);
     songRoutes.post("/updatestatus", requireAuth, requireRole(ROLE_ADMIN), SongController.updateStatus);
+    songRoutes.post("/updatetitle", requireAuth, requireRole(ROLE_ADMIN), SongController.updateTitle);
+    songRoutes.post("/updateartist", requireAuth, requireRole(ROLE_ADMIN), SongController.updateArtist);
 
     //====================================
     // Artist Routes
     //====================================
     apiRoutes.use("/artist", artistRoutes);
     artistRoutes.get("/", requireAuth, ArtistController.get);
+
+    //====================================
+    // Channel Routes
+    //====================================
+    apiRoutes.use("/channel", channelRoutes);
+    channelRoutes.get("/", requireAuth, requireRole(ROLE_ADMIN), ChannelController.get);
+    channelRoutes.post("/create", requireAuth, requireRole(ROLE_ADMIN), ChannelController.create);
+    channelRoutes.post("/sync", requireAuth, requireRole(ROLE_ADMIN), ChannelController.sync);
 
     //====================================
     // Playlist Routes
