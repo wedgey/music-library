@@ -18,9 +18,7 @@ exports.getManyVideoInfoByIds = async (ids, part ="") => {
     if (!part) part = "contentDetails, snippet";
     let params = { id: ids, part };
     let url = buildURL("videos", params);
-    console.log(url);
     let response = await request({ uri: url, json: true });
-    console.log(response);
     return response && response.items ? response.items : [];
 }
 
@@ -71,7 +69,6 @@ exports.getPlaylistVideosById = async (id, part = "", taskId = null) => {
             requestCount++;
             if (taskId) await TaskManager.update(taskId, { processed: result.length, total: response.pageInfo.totalResults });
             if (requestCount % 10) await new Promise((resolve, reject) => { setTimeout(() => resolve(), 1000) });
-            console.log(requestCount);
         }
     }
     return result;

@@ -4,7 +4,6 @@ const self = this;
 
 // Creates an artist
 exports.create = async function(name, type) {
-    console.log(name);
     let artist = new Artist({name, type});
     return artist.save();
 }
