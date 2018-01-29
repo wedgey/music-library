@@ -35,6 +35,10 @@ const ChannelSchema = new Schema({
         required: true,
         unique: true
     },
+    youtubeUsername: {
+        type: String,
+        unique: true
+    },
     title: {
         type: String,
         required: true
